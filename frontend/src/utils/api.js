@@ -1,6 +1,8 @@
 class Api {
   constructor(options) {
     this._url = options.baseUrl;
+    this._headers = options.headers;
+    this._authorization = options.headers.authorization;
   }
 
   _checkResponse(res) {
@@ -12,99 +14,95 @@ class Api {
   }
 
   _request(url, options) {
-    return fetch(`${this._url}${url}`, options)
-      .then(this._checkResponse)
+    return fetch(url, options).then(this._checkResponse);
   }
 
-  getInfo(token) {
-    return this._request('/users/me', {
+  getInfo() {
+    return this._request(`${this._url}/users/me`, {
       headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
+        authorization: this._authorization,
+      },
+    });
   }
 
-  getCards(token) {
-    return this._request('/cards', {
+  getCards() {
+    return this._request(`${this._url}/cards`, {
       headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
+        authorization: this._authorization,
+      },
+    });
   }
 
-  editUserInfo(formData, token) {
-    return this._request('/users/me', {
-      method: 'PATCH',
+  editUserInfo(formData) {
+    return this._request(`${this._url}/users/me`, {
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
-        "Authorization" : `Bearer ${token}`
+        authorization: this._authorization,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: data.username,
-        about: data.job,
-      })
-    })
+        name: formData.name,
+        about: formData.job,
+      }),
+    });
   }
 
-  editUserAvatar(formData, token) {
-    return this._request('/users/me/avatar', {
-      method: 'PATCH',
+  editUserAvatar(formData) {
+    return this._request(`${this._url}/users/me/avatar`, {
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
-        "Authorization" : `Bearer ${token}`
+        authorization: this._authorization,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        avatar: data.avatar,
-      })
-    })
+        avatar: formData,
+      }),
+    });
   }
 
-  addCard(formData, token) {
-    return this._request('/cards', {
-      method: 'POST',
+  addCard(formData) {
+    return this._request(`${this._url}/cards`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        "Authorization" : `Bearer ${token}`
+        authorization: this._authorization,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: data.title,
-        link: data.link,
-      })
-    })
+        name: formData.place,
+        link: formData.link,
+      }),
+    });
   }
 
-  addLike(cardId, token) {
-    return this._request(`/cards/${cardId}/likes`, {
-      method: 'PUT',
+  addLike(cardId) {
+    return this._request(`${this._url}/cards/${cardId}/likes`, {
+      method: "PUT",
       headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
+        authorization: this._authorization,
+      },
+    });
+  }
+
+  deleteLike(cardId) {
+    return this._request(`${this._url}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._authorization,
+      },
+    });
+  }
+
+  //Удаление карточки
+  deleteCard(cardId) {
+    return this._request(`${this._url}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: { authorization: this._authorization },
+    });
   }
 }
 
-  deleteLike(cardId, token) {
-    return this._request(`/cards/${cardId}/likes`, {
-      method: 'DELETE',
-      headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
-  }
-
-
-  //Удаление карточки
-  deleteCard(cardId, token) {
-    return this._request(`/cards/${cardId}`, {
-      method: 'DELETE',
-      headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
-  }
-
 const api = new Api({
-  baseUrl: "http://mesto.nikita.back.nomoredomainsrocks.ru",
+  baseUrl: 'http://mesto.nikita.back.nomoredomainsrocks.ru',
 });
 
 export default api;
