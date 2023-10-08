@@ -1,0 +1,11 @@
+.header__burger-active {
+    display: block;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (min-width:767px) {
+    .header__burger-active{
+        display: block;
+    }
+}

@@ -1,0 +1,10 @@
+.profile__rectangle-vector {
+    margin-top: 5px;
+}
+
+@media screen and (max-width:767px) {
+    .profile__rectangle-vector {
+        width: 14px;
+        height: 14px;
+    }
+}

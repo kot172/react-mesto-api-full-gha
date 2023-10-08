@@ -1,0 +1,16 @@
+.profile__info {
+    margin-left: 30px;
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 336px;
+    gap: 7px 18px;
+}
+
+@media screen and (max-width:767px) {
+    .profile__info {
+        margin: 26px auto 0;
+        max-width: 282px;
+        gap: 6px 10px;
+    }
+}

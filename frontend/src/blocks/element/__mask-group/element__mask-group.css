@@ -1,0 +1,12 @@
+.element__mask-group {
+    width: 282px;
+    height: 282px;
+    display: block;
+    cursor: pointer;
+    background-color: #c4c4c4;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.element__mask-group:hover {
+    opacity: 0.6;
+}

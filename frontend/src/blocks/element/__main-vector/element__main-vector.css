@@ -1,0 +1,13 @@
+.element__main-vector {
+    background-image: url(../../../images/Vector.svg);
+    width: 22px;
+    height: 19px;
+    margin-right: 2px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.element__main-vector:hover {
+    opacity: 0.5;
+}

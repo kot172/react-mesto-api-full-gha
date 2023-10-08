@@ -1,0 +1,6 @@
+.popup__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    max-width: 82%;
+}

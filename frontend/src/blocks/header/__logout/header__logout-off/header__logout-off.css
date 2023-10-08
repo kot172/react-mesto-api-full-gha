@@ -1,0 +1,18 @@
+.header__logout-off {
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', ‘Arial’, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+@media screen and (max-width:767px) {
+    .header__logout-off {
+        display: none;
+
+    }
+}
