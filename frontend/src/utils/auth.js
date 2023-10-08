@@ -1,4 +1,4 @@
-export const BASE_URL = "https://mesto.nikita.back.nomoredomainsrocks.ru";
+export const BASE_URL = "http://mesto.nikita.back.nomoredomainsrocks.ru";
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
