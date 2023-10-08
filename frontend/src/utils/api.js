@@ -1,8 +1,6 @@
 class Api {
   constructor(options) {
     this._url = options.baseUrl;
-    this._headers = options.headers;
-    this._authorization = options.headers.authorization;
   }
 
   _checkResponse(res) {
@@ -14,92 +12,96 @@ class Api {
   }
 
   _request(url, options) {
-    return fetch(url, options).then(this._checkResponse);
+    return fetch(`${this._url}${url}`, options)
+      .then(this._checkResponse)
   }
 
-  getInfo() {
-    return this._request(`${this._url}/users/me`, {
+  getInfo(token) {
+    return this._request('/users/me', {
       headers: {
-        authorization: this._authorization,
-      },
-    });
+        "Authorization" : `Bearer ${token}`
+      }
+    })
   }
 
-  getCards() {
-    return this._request(`${this._url}/cards`, {
+  getCards(token) {
+    return this._request('/cards', {
       headers: {
-        authorization: this._authorization,
-      },
-    });
+        "Authorization" : `Bearer ${token}`
+      }
+    })
   }
 
   editUserInfo(formData) {
-    return this._request(`${this._url}/users/me`, {
-      method: "PATCH",
+    return this._request('/users/me', {
+      method: 'PATCH',
       headers: {
-        authorization: this._authorization,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
+        "Authorization" : `Bearer ${token}`
       },
       body: JSON.stringify({
-        name: formData.name,
-        about: formData.job,
-      }),
-    });
+        name: data.username,
+        about: data.job,
+      })
+    })
   }
 
-  editUserAvatar(formData) {
-    return this._request(`${this._url}/users/me/avatar`, {
-      method: "PATCH",
+  editUserAvatar(formData, token) {
+    return this._request('/users/me/avatar', {
+      method: 'PATCH',
       headers: {
-        authorization: this._authorization,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
+        "Authorization" : `Bearer ${token}`
       },
       body: JSON.stringify({
-        avatar: formData,
-      }),
-    });
+        avatar: data.avatar,
+      })
+    })
   }
 
-  addCard(formData) {
-    return this._request(`${this._url}/cards`, {
-      method: "POST",
+  addCard(formData, token) {
+    return this._request('/cards', {
+      method: 'POST',
       headers: {
-        authorization: this._authorization,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
+        "Authorization" : `Bearer ${token}`
       },
       body: JSON.stringify({
-        name: formData.place,
-        link: formData.link,
-      }),
-    });
+        name: data.title,
+        link: data.link,
+      })
+    })
   }
 
-  addLike(cardId) {
-    return this._request(`${this._url}/cards/${cardId}/likes`, {
-      method: "PUT",
+  addLike(cardId, token) {
+    return this._request(`/cards/${cardId}/likes`, {
+      method: 'PUT',
       headers: {
-        authorization: this._authorization,
-      },
-    });
+        "Authorization" : `Bearer ${token}`
+      }
+    })
   }
+}
 
-  deleteLike(cardId) {
-    return this._request(`${this._url}/cards/${cardId}/likes`, {
-      method: "DELETE",
+  deleteLike(cardId, token) {
+    return this._request(`/cards/${cardId}/likes`, {
+      method: 'DELETE',
       headers: {
-        authorization: this._authorization,
-      },
-    });
+        "Authorization" : `Bearer ${token}`
+      }
+    })
   }
 
   //Удаление карточки
-  deleteCard(cardId) {
-    return this._request(`${this._url}/cards/${cardId}`, {
-      method: "DELETE",
-      headers: { authorization: this._authorization },
-    });
+  deleteCard(cardId, token) {
+    return this._request(`/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
+    })
   }
-}
+
 
 const api = new Api({
   baseUrl: 'http://mesto.nikita.back.nomoredomainsrocks.ru',
