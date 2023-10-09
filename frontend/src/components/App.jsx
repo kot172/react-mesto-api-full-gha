@@ -38,7 +38,8 @@ function App() {
   const [email, setEmail] = useState();
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
-  const token = localStorage.getItem("jwt");
+  // const token = localStorage.getItem("jwt");
+
 
   
   const navigatе = useNavigate();
@@ -80,6 +81,7 @@ function App() {
   React.useEffect(() => {
     // если у пользователя есть токен в localStorage,
     // эта функция проверит, действующий он или нет
+    const token = localStorage.getItem("jwt");
     if (token) {
       getContent(token)
         .then((res) => {
@@ -94,8 +96,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    Promise.all([api.getInfo(token), api.getCards(token)])
-      .then(([dataUser, dataCard]) => {
+    // Promise.all([api.getInfo(token), api.getCards(token)])
+    Promise.all([api.getInfo(), api.getCards()])
+    .then(([dataUser, dataCard]) => {
         setCurrentUser(dataUser);
         setCards(dataCard);
       })
@@ -121,7 +124,9 @@ function App() {
     evt.preventDefault();
     setIsSend(true);
     api
-      .deleteCard(deleteCardId, token)
+      // .deleteCard(deleteCardId, token)
+      .deleteCard(deleteCardId)
+
       .then((res) => {
         setCards(
           cards.filter((card) => {
@@ -137,7 +142,8 @@ function App() {
   //Обновить данные профиля
   function handleUpdateUser(inputValues) {
     function makeRequest() {
-      return api.editUserInfo(inputValues, token)
+      // return api.editUserInfo(inputValues, token)
+      return api.editUserInfo(inputValues)
       .then(setCurrentUser);
     }
     handleSubmit(makeRequest);
@@ -147,7 +153,9 @@ function App() {
   function handleUpdateAvatar(inputValue) {
     function makeRequest() {
       return api
-        .editUserAvatar(inputValue.avatar, token)
+        // .editUserAvatar(inputValue.avatar, token)
+        .editUserAvatar(inputValue.avatar)
+
         .then((dataUser) => {
           setCurrentUser(dataUser);
         })
@@ -159,7 +167,8 @@ function App() {
   function handleAddPlaceSubmit(inputValue) {
     function makeRequest() {
       return api
-        .addCard(inputValue, token)
+        // .addCard(inputValue, token)
+        .addCard(inputValue)
         .then((res) => {
           setCards([res, ...cards]);
         })
@@ -195,7 +204,7 @@ function App() {
       .then((data) => {
         console.log(data.token + 'token');
         console.log(localStorage);
-        if (data.token) {
+        if (localStorage.jwt) {
           setEmail(email);
           handleLoggedIn();
           navigatе("/", { replace: true });
