@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 158.160.106.13
 
-Frontend https://...
+Frontend https://mesto.nikita.nomoredomainsrocks.ru
 
-Backend https://...
+Backend https://mesto.nikita.back.nomoredomainsrocks.ru
