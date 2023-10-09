@@ -193,7 +193,7 @@ function App() {
   function handleLogin(email, password) {
     login(email, password)
       .then((data) => {
-        console.log(data);
+        console.log(data.token + 'token');
         if (data.token) {
           setEmail(email);
           handleLoggedIn();
