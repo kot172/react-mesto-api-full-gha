@@ -94,8 +94,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Promise.all([api.getInfo(token), api.getCards(token)])
-        Promise.all([api.getInfo(), api.getCards()])
+    Promise.all([api.getInfo(token), api.getCards(token)])
       .then(([dataUser, dataCard]) => {
         setCurrentUser(dataUser);
         setCards(dataCard);
@@ -195,6 +194,7 @@ function App() {
     login(email, password)
       .then((data) => {
         console.log(data.token + 'token');
+        console.log(localStorage);
         if (data.token) {
           setEmail(email);
           handleLoggedIn();
