@@ -16,9 +16,11 @@ class Api {
   }
 
   getInfo(token) {
+    console.log(this._url);
     return this._request(`${this._url}/users/me`, {
       headers: {
-        "Authorization" : `Bearer ${token}`
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     });
   }
@@ -26,7 +28,7 @@ class Api {
   getCards(token) {
     return this._request(`${this._url}/cards`, {
       headers: {
-        "Authorization" : `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     });
   }
@@ -36,7 +38,7 @@ class Api {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "Authorization" : `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({
         name: formData.name,
@@ -49,7 +51,7 @@ class Api {
     return this._request(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: {
-        "Authorization" : `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -62,7 +64,7 @@ class Api {
     return this._request(`${this._url}/cards`, {
       method: "POST",
       headers: {
-        "Authorization" : `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -76,7 +78,7 @@ class Api {
     return this._request(`${this._url}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: {
-        "Authorization" : `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     });
   }
@@ -85,7 +87,7 @@ class Api {
     return this._request(`${this._url}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: {
-        "Authorization" : `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     });
   }
@@ -96,7 +98,7 @@ class Api {
     return this._request(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
       headers: {
-        "Authorization" : `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     });
   }
