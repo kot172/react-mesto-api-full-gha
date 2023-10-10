@@ -8,7 +8,7 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/error-handler');
-const { MongoClient, ServerApiVersion } = require('mongodb')
+// const { MongoClient, ServerApiVersion } = require('mongodb')
 
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/testdb' } = process.env;
