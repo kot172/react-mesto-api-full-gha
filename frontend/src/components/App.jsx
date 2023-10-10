@@ -121,7 +121,7 @@ function App() {
     evt.preventDefault();
     setIsSend(true);
     api
-      .deleteCard(deleteCardId)
+      .deleteCard(deleteCardId, localStorage.get('jwt'))
       .then((res) => {
         setCards(
           cards.filter((card) => {
@@ -137,7 +137,7 @@ function App() {
   //Обновить данные профиля
   function handleUpdateUser(inputValues) {
     function makeRequest() {
-      return api.editUserInfo(inputValues)
+      return api.editUserInfo(inputValues, localStorage.get('jwt'))
         .then(setCurrentUser);
     }
     handleSubmit(makeRequest);
@@ -147,7 +147,7 @@ function App() {
   function handleUpdateAvatar(inputValue) {
     function makeRequest() {
       return api
-        .editUserAvatar(inputValue.avatar)
+        .editUserAvatar(inputValue.avatar, )
         .then((dataUser) => {
           setCurrentUser(dataUser);
         })
@@ -193,6 +193,7 @@ function App() {
   function handleLogin(email, password) {
     login(email, password)
       .then((data) => {
+        console.log(data);
         if (data.token) {
           localStorage.setItem();
           setEmail(email);
