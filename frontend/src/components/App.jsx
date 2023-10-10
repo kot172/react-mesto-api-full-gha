@@ -94,7 +94,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    Promise.all([api.getInfo(), api.getCards()])
+    Promise.all([api.getInfo(localStorage.jwt), api.getCards(localStorage.jwt)])
       .then(([dataUser, dataCard]) => {
         setCurrentUser(dataUser);
         setCards(dataCard);
