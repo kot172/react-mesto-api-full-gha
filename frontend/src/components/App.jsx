@@ -39,7 +39,7 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
 
-  // const token = localStorage.getItem("jwt");
+  const token = localStorage.getItem("jwt");
 
 
   const navigatе = useNavigate();
@@ -79,7 +79,6 @@ function App() {
 
   //Проверка токена при загрзке страницы
   useEffect(() => {
-    const token = localStorage.getItem('token');
     if (token) {
       getContent(token)
         .then((res) => {
@@ -94,13 +93,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    Promise.all([api.getInfo(localStorage.jwt), api.getCards(localStorage.jwt)])
+    Promise.all([api.getInfo(token), api.getCards(token)])
       .then(([dataUser, dataCard]) => {
         setCurrentUser(dataUser);
         setCards(dataCard);
       })
       .catch((err) => console.log(`Что-то пошло не так: ${err}`));
-  }, []);
+  }, [loggedIn]);
 
   //универсальная функция, принимающая функцию запроса
   function handleSubmit(request) {
@@ -121,7 +120,7 @@ function App() {
     evt.preventDefault();
     setIsSend(true);
     api
-      .deleteCard(deleteCardId, localStorage.get('jwt'))
+      .deleteCard(deleteCardId, token)
       .then((res) => {
         setCards(
           cards.filter((card) => {
@@ -137,7 +136,7 @@ function App() {
   //Обновить данные профиля
   function handleUpdateUser(inputValues) {
     function makeRequest() {
-      return api.editUserInfo(inputValues, localStorage.jwt)
+      return api.editUserInfo(inputValues, token)
         .then(setCurrentUser);
     }
     handleSubmit(makeRequest);
@@ -147,7 +146,7 @@ function App() {
   function handleUpdateAvatar(inputValue) {
     function makeRequest() {
       return api
-        .editUserAvatar(inputValue.avatar, localStorage.jwt)
+        .editUserAvatar(inputValue.avatar, token)
         .then((dataUser) => {
           setCurrentUser(dataUser);
         })
@@ -159,7 +158,7 @@ function App() {
   function handleAddPlaceSubmit(inputValue) {
     function makeRequest() {
       return api
-        .addCard(inputValue, localStorage.jwt)
+        .addCard(inputValue, token)
         .then((res) => {
           setCards([res, ...cards]);
         })
@@ -194,6 +193,7 @@ function App() {
     login(email, password)
       .then((data) => {
         if (data.token) {
+          console.log(data);
           localStorage.setItem('jwt', data.token);
           setEmail(email);
           handleLoggedIn();
