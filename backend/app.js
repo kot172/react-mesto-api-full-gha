@@ -9,7 +9,7 @@ const rateLimit = require('express-rate-limit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/error-handler');
 const { MongoClient, ServerApiVersion } = require('mongodb')
-const uri = "mongodb+srv://coler95:Pudovkin95@cluster0.zr1fl.mongodb.net/?retryWrites=true&w=majority";
+// const uri = "mongodb+srv://coler95:Pudovkin95@cluster0.zr1fl.mongodb.net/?retryWrites=true&w=majority";
 
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/testdb' } = process.env;
@@ -18,7 +18,7 @@ const app = express();
 
 app.use(cors());
 
-mongoose.connect(uri, {
+mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
