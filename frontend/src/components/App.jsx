@@ -195,7 +195,7 @@ function App() {
       .then((data) => {
         console.log(data);
         if (data.token) {
-          localStorage.setItem();
+          localStorage.setItem('jwt', data.token);
           setEmail(email);
           handleLoggedIn();
           navigatе("/", { replace: true });
