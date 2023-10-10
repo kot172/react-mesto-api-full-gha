@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.106.13
+IP-адрес 10.128.0.18
 
 Frontend https://mesto.nikita.nomoredomainsrocks.ru
 
