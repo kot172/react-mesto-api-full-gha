@@ -137,7 +137,7 @@ function App() {
   //Обновить данные профиля
   function handleUpdateUser(inputValues) {
     function makeRequest() {
-      return api.editUserInfo(inputValues, localStorage.get('jwt'))
+      return api.editUserInfo(inputValues, localStorage.jwt)
         .then(setCurrentUser);
     }
     handleSubmit(makeRequest);
@@ -147,7 +147,7 @@ function App() {
   function handleUpdateAvatar(inputValue) {
     function makeRequest() {
       return api
-        .editUserAvatar(inputValue.avatar, )
+        .editUserAvatar(inputValue.avatar, localStorage.jwt)
         .then((dataUser) => {
           setCurrentUser(dataUser);
         })
@@ -159,7 +159,7 @@ function App() {
   function handleAddPlaceSubmit(inputValue) {
     function makeRequest() {
       return api
-        .addCard(inputValue)
+        .addCard(inputValue, localStorage.jwt)
         .then((res) => {
           setCards([res, ...cards]);
         })
