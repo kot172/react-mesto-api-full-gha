@@ -39,7 +39,7 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
 
-  const token = localStorage.getItem("jwt");
+  // const token = localStorage.getItem("jwt");
 
 
   const navigatе = useNavigate();
@@ -79,10 +79,10 @@ function App() {
 
   //Проверка токена при загрзке страницы
   useEffect(() => {
+    const token = localStorage.getItem('token');
     if (token) {
       getContent(token)
         .then((res) => {
-          console.log(res);
           if (res) {
             setLoggedIn(true);
             setEmail(res.email);
@@ -121,7 +121,7 @@ function App() {
     evt.preventDefault();
     setIsSend(true);
     api
-      .deleteCard(deleteCardId, token)
+      .deleteCard(deleteCardId)
       .then((res) => {
         setCards(
           cards.filter((card) => {
@@ -137,7 +137,7 @@ function App() {
   //Обновить данные профиля
   function handleUpdateUser(inputValues) {
     function makeRequest() {
-      return api.editUserInfo(inputValues, token)
+      return api.editUserInfo(inputValues)
         .then(setCurrentUser);
     }
     handleSubmit(makeRequest);
@@ -147,7 +147,7 @@ function App() {
   function handleUpdateAvatar(inputValue) {
     function makeRequest() {
       return api
-        .editUserAvatar(inputValue.avatar, token)
+        .editUserAvatar(inputValue.avatar)
         .then((dataUser) => {
           setCurrentUser(dataUser);
         })
@@ -159,7 +159,7 @@ function App() {
   function handleAddPlaceSubmit(inputValue) {
     function makeRequest() {
       return api
-        .addCard(inputValue, token)
+        .addCard(inputValue)
         .then((res) => {
           setCards([res, ...cards]);
         })
@@ -194,6 +194,7 @@ function App() {
     login(email, password)
       .then((data) => {
         if (data.token) {
+          localStorage.setItem();
           setEmail(email);
           handleLoggedIn();
           navigatе("/", { replace: true });
