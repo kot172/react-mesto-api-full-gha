@@ -201,6 +201,7 @@ function App() {
         }
       })
       .catch(() => {
+        setIsRegister(false)
         setLoggedIn(false);
         infoTooltipPopupOpen();
         console.error(console.error("Ошибка при авторизации пользователя"));
